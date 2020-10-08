@@ -6,13 +6,14 @@ Julia implementation of the BSF-G algorithm from Runcie &amp; Mukherjee (2013)
 
 In Julia v1.5:
 
-```
+```julia
+using Pkg
 Pkg.add(PackageSpec(url="https://github.com/diogro/BayesianSparseFactorGmatrix.jl"))
 ```
 
 # Basic Usage
 
-```
+```julia
 using Distributions
 using LinearAlgebra
 using Kronecker
