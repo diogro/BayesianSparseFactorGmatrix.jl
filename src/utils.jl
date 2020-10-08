@@ -3,7 +3,7 @@ cholcov = function(x::Array{Float64, 2})
     if(isposdef(x))
         out = Array(cholesky(x).U)
     else
-        eigX = eigen(x)
+        eigX = eigen(Hermitian(x))
         val = sqrt.(eigX.values[eigX.values .> tol])
         vec = eigX.vectors[:,eigX.values .> tol]
         out = Diagonal(val) * vec'

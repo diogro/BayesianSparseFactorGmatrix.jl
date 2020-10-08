@@ -11,6 +11,7 @@ module BayesianSparseFactorGmatrix
 	include("utils.jl")
 	include("types.jl")
 	include("sampling_functions.jl")
+	include("posterior_utils.jl")
 	include("BSFG.jl")
 
 	## Initialize run parameters & prior hyper-parameters
@@ -64,6 +65,6 @@ module BayesianSparseFactorGmatrix
 	    [posterior_mean, Posterior, D, Pr, fixed_effects]
 	end
 
-	export runBSFGModel;
+	export runBSFGModel, cov2cor;
 
 end
