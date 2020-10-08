@@ -25,7 +25,7 @@
 	    #fixed effects + random effects 1
 	    #diagonalize mixed model equations for fast inversion: 
 	    #inv(a*blkdiag(fixed_effects.cov,Ainv) + b*[X Z_1]"[X Z_1]'') = Q*diag(1./(a.*s1+b.*s2))*Q"
-	    #inv(Array(BlockDiagonal([fixed_effects.cov, Ainv])) + Design2) ≈ svd_Design_Ainv["Q"] * diagm(1. ./ (svd_Design_Ainv["s1"]+svd_Design_Ainv["s2"])) * svd_Design_Ainv["Q"]'
+	    #inv(Array(BlockDiagonal([fixed_effects.cov, Ainv])) + Design2) ≈ svd_Design_Ainv["Q"] * Diagonal(1. ./ (svd_Design_Ainv["s1"]+svd_Design_Ainv["s2"])) * svd_Design_Ainv["Q"]'
 
 
 	    #random effects 2
@@ -44,7 +44,7 @@
 	    #similar to fixed effects + random effects 1 above; but no fixed effects.
 	    ZZt = D.Z_1 * D.Z_1'
 	    svd_ZZ_Ainv = makeSVDdict(ZZt, Array(Ainv))
-	    # inv(Array(ZZt) + Array(Ainv)) ≈ svd_ZZ_Ainv["Q"] * diagm(1. ./ (svd_ZZ_Ainv["s1"]+svd_ZZ_Ainv["s2"])) * svd_ZZ_Ainv["Q"]'
+	    # inv(Array(ZZt) + Array(Ainv)) ≈ svd_ZZ_Ainv["Q"] * Diagonal(1. ./ (svd_ZZ_Ainv["s1"]+svd_ZZ_Ainv["s2"])) * svd_ZZ_Ainv["Q"]'
 
 	    sp_num=0
 	    @showprogress 1 "Running Gibbs sampler..." for i = 1:Pr.nrun

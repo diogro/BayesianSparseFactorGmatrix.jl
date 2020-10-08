@@ -49,9 +49,9 @@ end
         Lj  = Posterior.Lambda[j];
         h2j = Posterior.G_h2[j];
 
-        Pj = Lj * Lj'                   + diagm(1. ./ (Posterior.ps[:,j])) + diagm(1. ./(Posterior.resid_ps[:,j]));
-        Gj = Lj * diagm(     h2j) * Lj' + diagm(1. ./ (Posterior.ps[:,j]));
-        Ej = Lj * diagm(1 .- h2j) * Lj'                                    + diagm(1. ./(Posterior.resid_ps[:,j]));
+        Pj = Lj * Lj'                   + Diagonal(1. ./ (Posterior.ps[:,j])) + Diagonal(1. ./(Posterior.resid_ps[:,j]));
+        Gj = Lj * Diagonal(     h2j) * Lj' + Diagonal(1. ./ (Posterior.ps[:,j]));
+        Ej = Lj * Diagonal(1 .- h2j) * Lj'                                    + Diagonal(1. ./(Posterior.resid_ps[:,j]));
 
 
         P_s[:, :, j] = copy(Pj);

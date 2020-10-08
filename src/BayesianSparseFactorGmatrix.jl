@@ -37,15 +37,15 @@ module BayesianSparseFactorGmatrix
 
 	# _k_min = 1e-1; # minimum factor loading size to report in running status
 	# _prop = 1.00;  # proportion of redundant elements within columns necessary to drop column
-	function runBSFGModel(Y, X, A, Z_1, burn::Int64=1000, sp::Int64=1000, thin::Int64=10, 
+	function runBSFGModel(Y, X, A, Z_1; burn::Int64=1000, sp::Int64=1000, thin::Int64=10, 
 	                      b0::Float64=1., b1::Float64=0.0005, epsilon::Float64=1e-2, 
 	                      h2_divisions::Int64=100, k_init::Int64=20, 
 	                      as::Float64=2., bs::Float64=0.1, df::Float64=3., 
 	                      ad1::Float64=2.1, bd1::Float64=1. / 20, 
-	                      ad2::Float64=3., bd2::Float64=1., 
+	                      ad2::Float64=3.0, bd2::Float64=1., 
 	                      k_min::Float64=0.1, prop::Float64=1.)
 	    Pr = Priors(burn, sp, thin, b0, b1, epsilon, h2_divisions, k_init, 
-	                        as, bs, df, ad1, bd1, ad2, bd2, k_min, prop)
+	                as, bs, df, ad1, bd1, ad2, bd2, k_min, prop)
 	    D = InputData(Y, X, A, Z_1);
 	    resid = Residuals(Pr.as, Pr.bs, D.Y, D.p, rand(Gamma(Pr.as, 1. / Pr.bs), D.p))
 	    Factors = LatentFactors(D.r1, D.n, D.p, Pr.k_init, Pr.df, Pr.ad1, Pr.bd1, Pr.ad2, Pr.bd2, 

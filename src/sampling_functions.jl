@@ -19,7 +19,7 @@ function sample_lambda!(Factors::LatentFactors, Ytil::Array{Float64, 2},
     for j = 1:p
        FUDi  = genetic_effects.ps[j] * broadcast(*, FtU, 1. ./ (eta' .+ genetic_effects.ps[j]/resid.ps[j]));
        means = FUDi * UtY[:,j];
-       Qlam  = FUDi*FtU' + diagm(Factors.Plam[j,:]); 
+       Qlam  = FUDi*FtU' + Diagonal(Factors.Plam[j,:]); 
        Llam  = cholesky(Hermitian(Qlam)).L
        vlam  = Llam  \ means; 
        mlam  = Llam' \ vlam; 
@@ -140,7 +140,7 @@ function sample_factors_scores!(Ytil::Array{Float64, 2}, Factors::LatentFactors,
     Lambda = Factors.Lambda;
     Lmsg = broadcast(*, Lambda, resid.ps);
     tau_e = reshape(1. ./ (1. .- Factors.h2), k);
-    S = cholesky(Hermitian(Lambda' * Lmsg + diagm(tau_e))).L;
+    S = cholesky(Hermitian(Lambda' * Lmsg + Diagonal(tau_e))).L;
     Meta = S' \ (S \ (Lmsg' * Ytil + broadcast(*, genetic_effects.U * Z_1 , tau_e)));
     Factors.scores = Meta + S' \ randn(k,n);   
 end
