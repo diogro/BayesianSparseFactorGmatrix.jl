@@ -37,7 +37,7 @@ module BayesianSparseFactorGmatrix
 
 	# _k_min = 1e-1; # minimum factor loading size to report in running status
 	# _prop = 1.00;  # proportion of redundant elements within columns necessary to drop column
-	function runBSFGModel(Y, X, A, Z_1; burn::Int64=1000, sp::Int64=1000, thin::Int64=10, 
+	function runBSFGModel(Y, X, A, Z_1; burn::Int64=2000, sp::Int64=1000, thin::Int64=20, 
 	                      b0::Float64=1., b1::Float64=0.0005, epsilon::Float64=1e-2, 
 	                      h2_divisions::Int64=100, k_init::Int64=20, 
 	                      as::Float64=2., bs::Float64=0.1, df::Float64=3., 
