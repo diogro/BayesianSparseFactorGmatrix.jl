@@ -29,3 +29,12 @@ function cov2cor(x::Array{Float64, 2})
     sds = sqrt.(diag(x))
     x ./ (sds * sds')
 end
+
+function std_normal(m::Array{Float64,2})
+    n, p = size(m);
+    probs = zeros(n, p);
+    for i=1:n,  j=1:p
+        probs[i, j] = logpdf(Normal(0, 1), m[i, j])
+    end
+    probs
+end

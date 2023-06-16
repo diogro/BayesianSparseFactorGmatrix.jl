@@ -84,7 +84,7 @@ function sample_h2s_discrete!(Factors::LatentFactors, eig_ZAZ::SVD)
         else       
             det = 0;
         end
-        log_ps[:,i] = sum(logpdf(Normal(0, 1), std_scores), dims = 2) .- det; #Prior on h2
+        log_ps[:,i] = sum(std_normal(std_scores), dims = 2) .- det; #Prior on h2
         if i==1
             log_ps = log_ps .+ log(s-1);
         end
