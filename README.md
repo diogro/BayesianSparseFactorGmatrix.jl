@@ -39,8 +39,9 @@ function randomData(n, p, b)
                  0.8,  1, 0, 0,
                  0,    0, 1, 0.4,
                  0,    0, 0.4, 1], (p, p))'
-
-    ad = reshape(cholcov(kronecker(A, G)) * randn(p * n), (p, n))'
+    
+    chol(x) = Array(cholesky(x).U)
+    ad = reshape(chol(kronecker(A, G)) * randn(p * n), (p, n))'
 
     Z_1 = Matrix{Float64}(I, n, n) # pedigree model matrix
     Z_2 = zeros(0,n);          # second random effect
